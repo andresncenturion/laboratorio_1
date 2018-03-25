@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1521986593 source:c:\users\andre\documents\github\laboratorio_1\clase 2 - diferencias entre js y c\ejercicio9\main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	<conio.h>
+
