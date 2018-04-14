@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1523722161 source:c:\users\andre\documents\github\laboratorio_1\clase 6 - vectores arrays strings\ejercicio 1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
