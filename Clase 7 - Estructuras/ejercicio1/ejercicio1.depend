@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1524265210 source:d:\centu\lab1\clase 7 - estructuras\ejercicio1\main.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+
+1524267952 source:d:\centu\lab1\clase 7 - estructuras\ejercicio1\funciones.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	"funciones.h"
+
+1524267872 d:\centu\lab1\clase 7 - estructuras\ejercicio1\funciones.h
+
