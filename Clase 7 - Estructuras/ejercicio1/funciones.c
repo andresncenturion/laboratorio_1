@@ -6,6 +6,7 @@
 eEmpleado pedirEmpleado (eEmpleado employee)
 {
     printf("NOMBRE: ");
+    fflush(stdin);
     gets(employee.nombre);
     printf("LEGAJO: ");
     scanf("%d", &employee.legajo);
@@ -30,6 +31,20 @@ void mostrarEmpleado (eEmpleado employee)
     printf("\nSEXO: %c", employee.sexo);
     printf("\nSUELDO: %.2f", employee.sueldo);
     printf("\nFECHA DE INGRESO: %d %d %d", employee.fecha.day, employee.fecha.month, employee.fecha.year);
+}
+
+void mostrarEmpleados (eEmpleado employees[], int tam)
+{
+    int i;
+    for (i=0 ; i<tam ; i++)
+    {
+        printf("NOMBRE: %s", employees[i].nombre);
+        printf("\nLEGAJO: %d", employees[i].legajo);
+        printf("\nSEXO: %c", employees[i].sexo);
+        printf("\nSUELDO: %.2f", employees[i].sueldo);
+        printf("\nFECHA DE INGRESO: %d %d %d", employees[i].fecha.day, employees[i].fecha.month, employees[i].fecha.year);
+        printf("\n");
+    }
 }
 
 char validarSexo (char sexo)

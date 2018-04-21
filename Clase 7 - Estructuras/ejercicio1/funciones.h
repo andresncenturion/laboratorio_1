@@ -16,6 +16,7 @@ typedef struct
 
 eEmpleado pedirEmpleado (eEmpleado);
 void mostrarEmpleado (eEmpleado);
+void mostrarEmpleados (eEmpleado[], int);
 char validarSexo (char);
 int validarMayorCero (int, char[]);
 
