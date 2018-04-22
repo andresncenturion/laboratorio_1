@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <string.h>
 #include "funciones.h"
 
 eEmpleado pedirEmpleado (eEmpleado employee)
@@ -44,6 +45,94 @@ void mostrarEmpleados (eEmpleado employees[], int tam)
         printf("\nSUELDO: %.2f", employees[i].sueldo);
         printf("\nFECHA DE INGRESO: %d %d %d", employees[i].fecha.day, employees[i].fecha.month, employees[i].fecha.year);
         printf("\n");
+    }
+}
+
+void ordenarPorNombre(eEmpleado plantel[], int tam)
+{
+    int i;
+    int j;
+    int comp;
+    eEmpleado aux;
+
+    for (i=0 ; i<tam-1 ; i++)
+    {
+        for (j=i+1 ; j<tam ; j++)
+        {
+            comp = strcmp (plantel[i].nombre, plantel[j].nombre);
+            if (comp > 0)
+            {
+                aux = plantel[i];
+                plantel[i] = plantel[j];
+                plantel[j] = aux;
+            }
+        }
+    }
+}
+
+void ordenarPorLegajo(eEmpleado copiaPlantel[], int tam)
+{
+    int i;
+    int j;
+    eEmpleado aux;
+
+    for (i=0 ; i<tam-1 ; i++)
+    {
+        for (j=i+1 ; j<tam ; j++)
+        {
+            if (copiaPlantel[i].legajo > copiaPlantel[j].legajo);
+            {
+                aux = copiaPlantel[i];
+                copiaPlantel[i] = copiaPlantel[j];
+                copiaPlantel[j] = aux;
+            }
+        }
+    }
+}
+
+void ordenarPorSueldo(eEmpleado plantel[], int tam)
+{
+    int i;
+    int j;
+    eEmpleado aux;
+
+    for (i=0 ; i<tam-1 ; i++)
+    {
+        for (j=i+1 ; j<tam ; j++)
+        {
+            if (plantel[i].sueldo > plantel[j].sueldo);
+            {
+                aux = plantel[i];
+                plantel[i] = plantel[j];
+                plantel[j] = aux;
+            }
+        }
+    }
+}
+
+void ordenarPorSexoYLegajo(eEmpleado plantel[], int tam)
+{
+    int i;
+    int j;
+    eEmpleado aux;
+
+    for (i=0 ; i<tam-1 ; i++)
+    {
+        for (j=i+1 ; j<tam ; j++)
+        {
+            if (plantel[i].sexo < plantel[j].sexo)
+            {
+                aux = plantel[i];
+                plantel[i] = plantel[j];
+                plantel[j] = aux;
+            }
+            else if (plantel[i].sexo == plantel[j].sexo && plantel[i].legajo < plantel[j].legajo)
+            {
+                aux = plantel[i];
+                plantel[i] = plantel[j];
+                plantel[j] = aux;
+            }
+        }
     }
 }
 

@@ -7,8 +7,8 @@ typedef struct
 
 typedef struct
 {
-    int legajo;
     char nombre[20];
+    int legajo;
     char sexo;
     float sueldo;
     eFechaIngreso fecha;
@@ -17,6 +17,10 @@ typedef struct
 eEmpleado pedirEmpleado (eEmpleado);
 void mostrarEmpleado (eEmpleado);
 void mostrarEmpleados (eEmpleado[], int);
+void ordenarPorNombre(eEmpleado[], int);
+void ordenarPorLegajo(eEmpleado[], int);
+void ordenarPorSueldo(eEmpleado[], int);
+void ordenarPorSexoYLegajo(eEmpleado[], int);
 char validarSexo (char);
 int validarMayorCero (int, char[]);
 
