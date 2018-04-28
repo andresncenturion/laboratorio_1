@@ -33,10 +33,20 @@ int main()
             system("pause");
             break;
         case 5:
-            printf("Ordenar\n");
+            ordenarEmpleados(gente, TAMEMP);
             system("pause");
             break;
         case 6:
+            totalSueldos(gente, TAMEMP);
+            system("pause");
+            break;
+        case 7:
+            salariosAltos(gente, sectores, TAMEMP, TAMSEC);
+            system("pause");
+        case 8:
+            empleadosPorSector(gente, sectores, TAMEMP, TAMSEC);
+            system("pause");
+        case 11:
             salir = 1;
             break;
         default:

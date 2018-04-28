@@ -33,4 +33,10 @@ int buscarEmpleado (eEmpleado[], int, int);
 int pedirSector (eSector[], int);
 void bajaEmpleado (eEmpleado[], int);
 void modificarEmpleado (eEmpleado[], eSector[],int, int);
+void ordenarEmpleados (eEmpleado[], int);
+void totalSueldos(eEmpleado[], int);
+void salariosAltos(eEmpleado[], eSector[], int, int);//preguntar si no se puede ahorrar enviar sectores
+void empleadosPorSector(eEmpleado[], eSector[], int, int);
+
+
 

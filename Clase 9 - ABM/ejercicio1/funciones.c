@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "funciones.h"
 
 #define TAMEMP 50
@@ -22,14 +23,17 @@ int menu (void)
     system ("cls");
     printf("***ABM EMPLEADOS***");
     printf("\n\nINGRESE LA OPCION DESEADA");
-    printf("\n1. ALTA");
-    printf("\n2. BAJA");
-    printf("\n3. MODIFICACION");
-    printf("\n4. LISTAR");
-    printf("\n5. ORDENAR");
-    printf("\n6. SALIR");
-    printf("\n7. TOTAL SUELDOS");
-    printf("\n8. LOS QUE MAS GANAN");
+    printf("\n 1. ALTA");
+    printf("\n 2. BAJA");
+    printf("\n 3. MODIFICACION");
+    printf("\n 4. LISTAR");
+    printf("\n 5. ORDENAR");
+    printf("\n 6. INFORMAR TOTAL SUELDOS");
+    printf("\n 7. INFORMAR SALARIOS MAS ALTOS");
+    printf("\n 8. INFORMAR EMPLEADOS POR SECTOR");
+    printf("\n 9. INFORMAR CANTIDAD DE EMPLEADOS POR SECTOR");
+    printf("\n10. INFORMAR TOTAL DE SUELDOS POR SECTOR");
+    printf("\n11. SALIR");
     printf("\n\n");
     scanf("%d",&opcion);
     return opcion;
@@ -217,4 +221,77 @@ void modificarEmpleado (eEmpleado gente[], eSector sectores[], int tamemp, int t
             printf("\nModificacion cancelada");
         }
     }
+}
+
+void ordenarEmpleados (eEmpleado gente[], int tam)
+{
+    int i;
+    int j;
+    eEmpleado auxEmpleado;
+
+    for (i=0 ; i<tam-1 ; i++)
+    {
+        for (j=i+1 ; j<tam ; j++)
+        {
+            if (gente[j].sexo < gente[i].sexo)
+            {
+                auxEmpleado = gente[i];
+                gente[i] = gente[j];
+                gente[j] = auxEmpleado;
+            }
+            else if (strcmp(gente[j].nombre, gente[i].nombre) < 0)
+            {
+                auxEmpleado = gente[i];
+                gente[i] = gente[j];
+                gente[j] = auxEmpleado;
+            }
+        }
+    }
+}
+
+void totalSueldos(eEmpleado gente[], int tamEmp)
+{
+    int i;
+    float acumSueldos = 0;
+
+    system("cls");
+    for (i=0 ; i<tamEmp ; i++)
+    {
+        acumSueldos += gente[i].sueldo;
+    }
+    printf("Total de sueldos: %f", acumSueldos);
+}
+
+void salariosAltos(eEmpleado gente[], eSector sectores[], int tam, int tamSec)
+{
+    int i;
+    int flagMaximo = 0;
+    float sueldoMaximo;
+
+    for (i=0 ; i<tam ; i++)
+    {
+        if (gente[i].sueldo>sueldoMaximo || flagMaximo == 0)
+        {
+            flagMaximo = 1;
+            sueldoMaximo = gente[i].sueldo;
+        }
+    }
+    for (i=0 ; i<tam ; i++)
+    {
+        if (gente[i].sueldo == sueldoMaximo)
+        {
+            mostrarEmpleado(gente[i], sectores, tam);
+        }
+    }
+}
+
+void empleadosPorSector(eEmpleado gente[], eSector sectores[], int tamEmp, int tamSec)
+{
+    int i;
+
+    for (i=0 ; i<tamSec ; i++)
+    {
+        if (gente[i].idSector == 1)
+    }
+
 }
