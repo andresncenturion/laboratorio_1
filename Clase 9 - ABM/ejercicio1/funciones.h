@@ -23,14 +23,14 @@ typedef struct
     char nombreSector[20];
 }eEmpleado;
 
-int menu (void);
 void inicializarEmpleados (eEmpleado[], int);
-void altaEmpleado (eEmpleado[], int);
+int menu (void);
+void altaEmpleado (eEmpleado[], eSector[], int, int);
+void mostrarEmpleado (eEmpleado, eSector[], int);
+void mostrarEmpleados (eEmpleado[], eSector[], int, int);
 int buscarLibre (eEmpleado[], int);
 int buscarEmpleado (eEmpleado[], int, int);
-eEmpleado pedirEmpleado (eEmpleado);
-void mostrarEmpleado (eEmpleado);
-void mostrarEmpleados (eEmpleado[], int);
+int pedirSector (eSector[], int);
 void bajaEmpleado (eEmpleado[], int);
-void modificarEmpleado (eEmpleado[], int);
-int mostrarSectores (void);
+void modificarEmpleado (eEmpleado[], eSector[],int, int);
+

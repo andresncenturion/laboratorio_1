@@ -2,33 +2,34 @@
 #include <stdlib.h>
 #include "funciones.h"
 
-#define TAM 50
+#define TAMEMP 50
+#define TAMSEC 5
 
 int main()
 {
     int salir = 0;
-    eEmpleado gente[TAM];
+    eEmpleado gente[TAMEMP];
     eSector sectores[] = {{1,"Ventas"},{2,"Compras"},{3,"Comercial"},{4,"RRHH"},{5,"Sistemas"}};
 
-    inicializarEmpleados(gente, TAM);
+    inicializarEmpleados(gente, TAMEMP);
     do
     {
         switch (menu())
         {
         case 1:
-            altaEmpleado(gente, TAM);
+            altaEmpleado(gente, sectores, TAMEMP, TAMSEC);
             system("pause");
             break;
         case 2:
-            bajaEmpleado(gente, TAM);
+            bajaEmpleado(gente, TAMEMP);
             system("pause");
             break;
         case 3:
-            printf("Modificacion\n");
+            modificarEmpleado(gente, sectores, TAMEMP, TAMSEC);
             system("pause");
             break;
         case 4:
-            mostrarEmpleados(gente, TAM);
+            mostrarEmpleados(gente, sectores, TAMEMP, TAMSEC);
             system("pause");
             break;
         case 5:

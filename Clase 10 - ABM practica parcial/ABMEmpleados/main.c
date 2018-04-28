@@ -33,8 +33,8 @@ typedef struct
 
 int menu();
 void inicializarEmpleados(eEmpleado[], int);
-void mostrarEmpleados(eEmpleado vec[], int tamEmp, eSector[],int);
 void mostrarEmpleado(eEmpleado, eSector[], int);
+void mostrarEmpleados(eEmpleado vec[], int tamEmp, eSector[],int);
 int buscarLibre(eEmpleado[], int);
 int buscarEmpleado(eEmpleado[], int, int);
 void bajaEmpleado(eEmpleado[], int, eSector[], int);
