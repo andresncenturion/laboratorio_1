@@ -109,6 +109,8 @@ eEmpleado pedirEmpleado (eEmpleado employee)
     scanf("%f", &employee.sueldo);
     printf("FECHA DE INGRESO (dd/mm/aa): ");
     scanf("%d %d %d", &employee.fecha.day, &employee.fecha.month, &employee.fecha.year);
+    printf("ID SECTOR: ");
+    employee.idSector = mostrarSectores();
 
     return employee;
 }
@@ -156,4 +158,18 @@ void bajaEmpleado (eEmpleado gente[], int tam)
         gente[existeLegajo].isEmpty = 1;
         printf("Baja exitosa");
     }
+}
+
+int mostrarSectores (void)
+{
+    int opcionSector;
+
+    printf("\n1. VENTAS");
+    printf("\n2. COMPRAS");
+    printf("\n3. COMERCIAL");
+    printf("\n4. RRHH");
+    printf("\n5. SISTEMAS");
+    scanf("%d", &opcionSector);
+
+    return opcionSector;
 }

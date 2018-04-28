@@ -8,6 +8,7 @@ int main()
 {
     int salir = 0;
     eEmpleado gente[TAM];
+    eSector sectores[] = {{1,"Ventas"},{2,"Compras"},{3,"Comercial"},{4,"RRHH"},{5,"Sistemas"}};
 
     inicializarEmpleados(gente, TAM);
     do

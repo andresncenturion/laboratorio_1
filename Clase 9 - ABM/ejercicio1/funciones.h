@@ -1,5 +1,11 @@
 typedef struct
 {
+    int id;
+    char nombre[20];
+}eSector;
+
+typedef struct
+{
     int day;
     int month;
     int year;
@@ -13,6 +19,8 @@ typedef struct
     float sueldo;
     eFecha fecha;
     int isEmpty;
+    int idSector;
+    char nombreSector[20];
 }eEmpleado;
 
 int menu (void);
@@ -25,3 +33,4 @@ void mostrarEmpleado (eEmpleado);
 void mostrarEmpleados (eEmpleado[], int);
 void bajaEmpleado (eEmpleado[], int);
 void modificarEmpleado (eEmpleado[], int);
+int mostrarSectores (void);
