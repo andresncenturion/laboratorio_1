@@ -37,6 +37,5 @@ void ordenarEmpleados (eEmpleado[], int);
 void totalSueldos(eEmpleado[], int);
 void salariosAltos(eEmpleado[], eSector[], int, int);//preguntar si no se puede ahorrar enviar sectores
 void empleadosPorSector(eEmpleado[], eSector[], int, int);
-
-
-
+void cantidadPorSector(eEmpleado[], eSector[], int, int);
+void sueldosPorSector(eEmpleado[], eSector[], int, int);

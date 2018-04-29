@@ -46,6 +46,12 @@ int main()
         case 8:
             empleadosPorSector(gente, sectores, TAMEMP, TAMSEC);
             system("pause");
+        case 9:
+            cantidadPorSector(gente, sectores, TAMEMP, TAMSEC);
+            system("pause");
+        case 10:
+            sueldosPorSector(gente, sectores, TAMEMP, TAMSEC);
+            system("pause");
         case 11:
             salir = 1;
             break;

@@ -288,10 +288,64 @@ void salariosAltos(eEmpleado gente[], eSector sectores[], int tam, int tamSec)
 void empleadosPorSector(eEmpleado gente[], eSector sectores[], int tamEmp, int tamSec)
 {
     int i;
+    int j;
 
+    system("cls");
+    printf("--- LISTADO DE EMPLEADOS POR SECTOR ---\n\n");
     for (i=0 ; i<tamSec ; i++)
     {
-        if (gente[i].idSector == 1)
+        printf("--- %s ---", sectores[i].nombre);
+        for (j=0 ; j<tamEmp ; j++)
+        {
+            if (gente[j].isEmpty == 0 && gente[j].idSector == sectores[i].id)
+            {
+                mostrarEmpleado(gente[j], sectores, tamSec);
+            }
+        }
     }
+}
 
+void cantidadPorSector(eEmpleado gente[], eSector sectores[], int tamEmp, int tamSec)
+{
+    int i;
+    int j;
+    int contadorSector = 0;
+
+    system("cls");
+    printf("--- CANTIDAD DE EMPLEADOS POR SECTOR ---\n\n");
+    for (i=0 ; i<tamSec ; i++)
+    {
+        printf("--- %s ---: ", sectores[i].nombre);
+        for (j=0 ; j<tamEmp ; j++)
+        {
+            if (gente[j].isEmpty == 0 && gente[j].idSector == sectores[i].id)
+            {
+                contadorSector++;
+            }
+        }
+        printf("%d", contadorSector);
+    }
+}
+
+void sueldosPorSector(eEmpleado gente[], eSector sectores[], int tamEmp, int tamSec)
+{
+    int i;
+    int indexSector;
+    float acumSueldo = 0;
+
+    system("cls");
+    printf("--- TOTAL DE SUELDOS POR SECTOR ---\n\n");
+
+    indexSector = pedirSector(sectores, tamSec) -1;
+    printf("--- %s ---: ", sectores[indexSector].nombre);
+
+    for (i=0 ; i<tamEmp ; i++)
+    {
+        if (gente[i].isEmpty == 0 && gente[i].idSector == sectores[indexSector].id)
+        {
+            acumSueldo += gente[i].sueldo;
+        }
+
+        printf("%f", acumSueldo);
+    }
 }
