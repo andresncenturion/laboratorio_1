@@ -18,8 +18,8 @@ typedef struct
     char sexo;
     float sueldo;
     eFecha fecha;
-    int isEmpty;
     int idSector;
+    int isEmpty;
     char nombreSector[20];
 }eEmpleado;
 

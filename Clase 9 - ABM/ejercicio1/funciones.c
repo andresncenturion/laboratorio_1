@@ -50,7 +50,7 @@ void altaEmpleado (eEmpleado gente[], eSector sectores[], int tamemp, int tamsec
     index = buscarLibre(gente, tamemp);
     if (index == -1)
     {
-        printf("\nNo se pueden ingresar mas empleados.");
+        printf("No se pueden ingresar mas empleados.\n\n");
         system("pause");
     }
     else
@@ -60,7 +60,8 @@ void altaEmpleado (eEmpleado gente[], eSector sectores[], int tamemp, int tamsec
         indexExiste = buscarEmpleado(gente, TAMEMP, auxLegajo);
         if (indexExiste != -1)
         {
-            printf("\nEl legajo %d ya fue ingresado.", auxLegajo);
+            printf("\nEl legajo %d ya fue ingresado.\n", auxLegajo);
+            printf("LEGAJO \tNOMBRE \tSEXO \tSUELDO \tFECHA DE INGRESO \tSECTOR\n\n");
             mostrarEmpleado (gente[indexExiste], sectores, TAMSEC);
         }
         else
@@ -125,12 +126,12 @@ int pedirSector (eSector sectores[], int tam)
     int opcionSector;
     int i;
 
-    printf("\nSELECCIONE SECTOR: ");
+    printf("\nSELECCIONE SECTOR: \n");
     for (i=0; i<tam ; i++)
     {
         printf("%d- %s\n", sectores[i].id, sectores[i].nombre);
     }
-    scanf("%d", &opcionSector);
+    scanf("\n\n%d", &opcionSector);
 
     return opcionSector;
 }
@@ -148,7 +149,7 @@ void mostrarEmpleado (eEmpleado employee, eSector sectores[], int tamsec)
             break;
         }
     }
-    printf("%6d \t%20s \t%c \t%5.2f \t%2d/%2d/%d \t%10s", employee.legajo, employee.nombre, employee.sexo, employee.sueldo, employee.fecha.day, employee.fecha.month, employee.fecha.year, sectores[indexSector].nombre);
+    printf("%d \t%s \t%c \t%.2f \t%d/%d/%d \t%s\n", employee.legajo, employee.nombre, employee.sexo, employee.sueldo, employee.fecha.day, employee.fecha.month, employee.fecha.year, sectores[indexSector].nombre);
 }
 
 void mostrarEmpleados (eEmpleado gente[], eSector sectores[], int tamEmp, int tamSec)
@@ -177,12 +178,12 @@ void bajaEmpleado (eEmpleado gente[], int tam)
     existeLegajo = buscarEmpleado(gente, tam, legajo);
     if (existeLegajo == -1)
     {
-        printf("El legajo ingresado no existe.");
+        printf("El legajo ingresado no existe.\n\n");
     }
     else
     {
         gente[existeLegajo].isEmpty = 1;
-        printf("Baja exitosa");
+        printf("Baja exitosa\n\n");
     }
 }
 
@@ -194,19 +195,19 @@ void modificarEmpleado (eEmpleado gente[], eSector sectores[], int tamemp, int t
     char confirma;
 
     system ("cls");
-    printf("--- MODIFICACION DE EMPLEADO ---");
-    printf("\nIngrese legajo a modificar: ");
+    printf("--- MODIFICACION DE EMPLEADO ---\n\n");
+    printf("Ingrese legajo a modificar: ");
     scanf("%d", &legajo);
 
     index = buscarEmpleado(gente, tamemp, legajo);
     if (index == -1)
     {
-        printf("El legajo ingresado no existe.");
+        printf("El legajo ingresado no existe.\n\n");
     }
     else
     {
         mostrarEmpleado(gente[index], sectores, tamsec);
-        printf("\nIngrese nuevo sueldo: ");
+        printf("Ingrese nuevo sueldo: ");
         scanf("%f", &auxSueldo);
         printf("\nConfima cambio de sueldo?: ");
         fflush(stdin);
@@ -214,11 +215,11 @@ void modificarEmpleado (eEmpleado gente[], eSector sectores[], int tamemp, int t
         if (confirma == 's')
         {
             gente[index].sueldo = auxSueldo;
-            printf("\nModificacion exitosa.");
+            printf("Modificacion exitosa.\n\n");
         }
         else
         {
-            printf("\nModificacion cancelada");
+            printf("Modificacion cancelada.\n\n");
         }
     }
 }
@@ -233,20 +234,24 @@ void ordenarEmpleados (eEmpleado gente[], int tam)
     {
         for (j=i+1 ; j<tam ; j++)
         {
-            if (gente[j].sexo < gente[i].sexo)
+            if (gente[i].sexo > gente[j].sexo)
             {
                 auxEmpleado = gente[i];
                 gente[i] = gente[j];
                 gente[j] = auxEmpleado;
             }
-            else if (strcmp(gente[j].nombre, gente[i].nombre) < 0)
+            else if (gente[j].sexo == gente[i].sexo)
             {
-                auxEmpleado = gente[i];
-                gente[i] = gente[j];
-                gente[j] = auxEmpleado;
+                if (strcmp(gente[i].nombre, gente[j].nombre) > 0)
+                {
+                    auxEmpleado = gente[i];
+                    gente[i] = gente[j];
+                    gente[j] = auxEmpleado;
+                }
             }
         }
     }
+    printf("\nOrdenamiento exitoso.\n\n");
 }
 
 void totalSueldos(eEmpleado gente[], int tamEmp)
@@ -259,7 +264,7 @@ void totalSueldos(eEmpleado gente[], int tamEmp)
     {
         acumSueldos += gente[i].sueldo;
     }
-    printf("Total de sueldos: %f", acumSueldos);
+    printf("Total de sueldos: %.2f\n\n", acumSueldos);
 }
 
 void salariosAltos(eEmpleado gente[], eSector sectores[], int tam, int tamSec)
@@ -268,6 +273,8 @@ void salariosAltos(eEmpleado gente[], eSector sectores[], int tam, int tamSec)
     int flagMaximo = 0;
     float sueldoMaximo;
 
+    system("cls");
+    printf("--- SALARIOS MAS ALTOS ---\n\n");
     for (i=0 ; i<tam ; i++)
     {
         if (gente[i].sueldo>sueldoMaximo || flagMaximo == 0)
@@ -294,7 +301,7 @@ void empleadosPorSector(eEmpleado gente[], eSector sectores[], int tamEmp, int t
     printf("--- LISTADO DE EMPLEADOS POR SECTOR ---\n\n");
     for (i=0 ; i<tamSec ; i++)
     {
-        printf("--- %s ---", sectores[i].nombre);
+        printf("--- %s ---\n\n", sectores[i].nombre);
         for (j=0 ; j<tamEmp ; j++)
         {
             if (gente[j].isEmpty == 0 && gente[j].idSector == sectores[i].id)
@@ -315,7 +322,7 @@ void cantidadPorSector(eEmpleado gente[], eSector sectores[], int tamEmp, int ta
     printf("--- CANTIDAD DE EMPLEADOS POR SECTOR ---\n\n");
     for (i=0 ; i<tamSec ; i++)
     {
-        printf("--- %s ---: ", sectores[i].nombre);
+        printf("%s: ", sectores[i].nombre);
         for (j=0 ; j<tamEmp ; j++)
         {
             if (gente[j].isEmpty == 0 && gente[j].idSector == sectores[i].id)
@@ -323,29 +330,26 @@ void cantidadPorSector(eEmpleado gente[], eSector sectores[], int tamEmp, int ta
                 contadorSector++;
             }
         }
-        printf("%d", contadorSector);
+        printf("%d\n", contadorSector);
     }
 }
 
 void sueldosPorSector(eEmpleado gente[], eSector sectores[], int tamEmp, int tamSec)
 {
     int i;
-    int indexSector;
+    int idSector;
     float acumSueldo = 0;
 
     system("cls");
-    printf("--- TOTAL DE SUELDOS POR SECTOR ---\n\n");
-
-    indexSector = pedirSector(sectores, tamSec) -1;
-    printf("--- %s ---: ", sectores[indexSector].nombre);
-
+    printf("--- SUELDOS POR SECTOR ---\n");
+    idSector = pedirSector(sectores, tamSec);
+    printf("%s: ", sectores[idSector-1].nombre);
     for (i=0 ; i<tamEmp ; i++)
     {
-        if (gente[i].isEmpty == 0 && gente[i].idSector == sectores[indexSector].id)
+        if(gente[i].idSector == idSector)
         {
             acumSueldo += gente[i].sueldo;
         }
-
-        printf("%f", acumSueldo);
     }
+    printf("%.2f\n", acumSueldo);
 }

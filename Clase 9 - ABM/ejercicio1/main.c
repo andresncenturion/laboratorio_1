@@ -8,10 +8,21 @@
 int main()
 {
     int salir = 0;
-    eEmpleado gente[TAMEMP];
+    eEmpleado gente[TAMEMP] = {{1000, "Juan", 'm', 20000, {12, 5, 2015}, 5, 0},{2212, "Juana", 'f', 15000, {12, 5, 2010}, 3, 0},{5656, "Manuel", 'm', 18500, {12, 5, 2014}, 1, 0}, {3344, "Lucia", 'f', 23200, {2, 10, 2002}, 1, 0},{8658, "Alan", 'm', 29500, {29, 3, 2008}, 1, 0},{5656, "Andrea", 'f', 34600, {12, 5, 2014}, 2, 0},{2121, "Hugo", 'm', 34600, {12, 5, 2014}, 5, 0}};
     eSector sectores[] = {{1,"Ventas"},{2,"Compras"},{3,"Comercial"},{4,"RRHH"},{5,"Sistemas"}};
 
     inicializarEmpleados(gente, TAMEMP);
+
+    //harcodeo
+    gente[0].isEmpty = 0;
+    gente[1].isEmpty = 0;
+    gente[2].isEmpty = 0;
+    gente[3].isEmpty = 0;
+    gente[4].isEmpty = 0;
+    gente[5].isEmpty = 0;
+    gente[6].isEmpty = 0;
+
+
     do
     {
         switch (menu())
@@ -43,15 +54,19 @@ int main()
         case 7:
             salariosAltos(gente, sectores, TAMEMP, TAMSEC);
             system("pause");
+            break;
         case 8:
             empleadosPorSector(gente, sectores, TAMEMP, TAMSEC);
             system("pause");
+            break;
         case 9:
             cantidadPorSector(gente, sectores, TAMEMP, TAMSEC);
             system("pause");
+            break;
         case 10:
             sueldosPorSector(gente, sectores, TAMEMP, TAMSEC);
             system("pause");
+            break;
         case 11:
             salir = 1;
             break;
