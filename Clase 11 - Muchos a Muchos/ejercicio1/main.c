@@ -25,6 +25,7 @@ typedef struct
 
 void mostrarAlumnosConMaterias (eAlumno[], int, eMateria[], int, eInscripcion[], int);
 void alumnosPorMateria (eMateria[], int, eInscripcion[], int);
+void materiasMasCursadas (eMateria[], int, eInscripcion[], int);
 
 int main()
 {
@@ -34,6 +35,7 @@ int main()
 
     mostrarAlumnosConMaterias(alumnos, 5, materias, 4, inscripciones, 5);
     alumnosPorMateria(materias, 4, inscripciones, 5);
+    materiasMasCursadas(materias, 4, inscripciones, 5);
 
     system("pause");
     return 0;
@@ -89,3 +91,25 @@ void alumnosPorMateria (eMateria materias[], int tamMat, eInscripcion inscripcio
     printf("\n\n");
 }
 
+void materiasMasCursadas (eMateria materias[], int tamMat, eInscripcion inscripciones[], int tamIns)
+{
+    int i = 0;
+    int j = 0;
+    int flagMaximo = 0;
+    int contMaximo = 0;
+    int index;
+
+    printf("--- MATERIA CON MAS INSCRIPTOS ---\n");
+    for (i=0 ; i<tamMat ; i++)
+    {
+        for (j=0 ; j<tamIns ; j++)
+        {
+            if ((materias[i].codigo == inscripciones[j].codMateria) || (flagMaximo = 0))
+            {
+                flagMaximo = 1;
+                index = i;
+                contMaximo++;
+            }
+        }
+    }
+}
