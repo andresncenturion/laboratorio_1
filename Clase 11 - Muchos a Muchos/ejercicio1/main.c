@@ -26,6 +26,7 @@ typedef struct
 void mostrarAlumnosConMaterias (eAlumno[], int, eMateria[], int, eInscripcion[], int);
 void alumnosPorMateria (eMateria[], int, eInscripcion[], int);
 void materiasMasCursadas (eMateria[], int, eInscripcion[], int);
+void nombresPorMateria ();
 
 int main()
 {
