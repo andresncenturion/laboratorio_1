@@ -25,18 +25,20 @@ typedef struct
 
 void mostrarAlumnosConMaterias (eAlumno[], int, eMateria[], int, eInscripcion[], int);
 void alumnosPorMateria (eMateria[], int, eInscripcion[], int);
+int cantidadInscriptos (int, eInscripcion[], int);
 void materiasMasCursadas (eMateria[], int, eInscripcion[], int);
-void nombresPorMateria ();
+void nombresPorMateria (eAlumno[], int, eMateria[], int, eInscripcion[], int);
 
 int main()
 {
     eAlumno alumnos[] = {{1001, "fabricio"}, {1002, "alan"}, {1003, "laura"}, {1004, "martin"}, {1005, "marina"}};
     eMateria materias[] = {{1, "programacion"}, {2, "matematica"}, {3, "spd"}, {4, "laboratorio"}};
-    eInscripcion inscripciones[] = {{1001, 3}, {1002, 4}, {1001, 5}, {1003, 3}, {1005, 2}};
+    eInscripcion inscripciones[] = {{1001, 3}, {1002, 4}, {1001, 1}, {1003, 3}, {1005, 2}};
 
     mostrarAlumnosConMaterias(alumnos, 5, materias, 4, inscripciones, 5);
     alumnosPorMateria(materias, 4, inscripciones, 5);
     materiasMasCursadas(materias, 4, inscripciones, 5);
+    nombresPorMateria(alumnos, 5, materias, 4, inscripciones, 5);
 
     system("pause");
     return 0;
@@ -88,29 +90,72 @@ void alumnosPorMateria (eMateria materias[], int tamMat, eInscripcion inscripcio
             }
         }
         printf("%d", contAlumnoInscripto);
+        contAlumnoInscripto = 0;
     }
     printf("\n\n");
 }
 
+int cantidadInscriptos (int codigo, eInscripcion inscripciones[], int tamIns)
+{
+    int inscriptos = 0;
+    int i;
+
+    for (i=0 ; i<tamIns ; i++)
+    {
+            if (codigo == inscripciones[i].codMateria)
+            {
+                inscriptos++;
+            }
+    }
+    return inscriptos;
+}
+
 void materiasMasCursadas (eMateria materias[], int tamMat, eInscripcion inscripciones[], int tamIns)
 {
-    int i = 0;
-    int j = 0;
-    int flagMaximo = 0;
-    int contMaximo = 0;
+    int i;
     int index;
+    int inscriptos;
+    int flagMaximo = 0;
+    int maxInscriptos;
 
-    printf("--- MATERIA CON MAS INSCRIPTOS ---\n");
+    printf("--- MATERIAS MAS CURSADAS ---\n");
     for (i=0 ; i<tamMat ; i++)
     {
+        inscriptos = cantidadInscriptos(materias[i].codigo, inscripciones, tamIns);
+        if ((inscriptos > maxInscriptos) || (flagMaximo == 0))
+        {
+            index = i;
+            flagMaximo = 1;
+            maxInscriptos = inscriptos;
+        }
+    }
+    printf("%s: %d", materias[index].descripcion, maxInscriptos);
+    printf("\n\n");
+}
+
+void nombresPorMateria (eAlumno alumnos[], int tamAlu, eMateria materias[], int tamMat, eInscripcion inscripciones[], int tamIns)
+{
+    int i;
+    int j;
+    int k;
+
+    printf("--- INSCRIPTOS POR MATERIA ---\n");
+    for (i=0 ; i<tamMat ; i++)
+    {
+        printf("\n%s", materias[i].descripcion);
         for (j=0 ; j<tamIns ; j++)
         {
-            if ((materias[i].codigo == inscripciones[j].codMateria) || (flagMaximo = 0))
+            if (materias[i].codigo == inscripciones[j].codMateria)
             {
-                flagMaximo = 1;
-                index = i;
-                contMaximo++;
+                for (k=0 ; k<tamAlu ; k++)
+                {
+                    if (inscripciones[j].legAlumno == alumnos[k].legajo)
+                    {
+                        printf("\n\t%s", alumnos[k].nombre);
+                    }
+                }
             }
         }
     }
+    printf("\n\n");
 }
