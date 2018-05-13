@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1525740981 source:d:\centu\laboratorio_1\clase 12 - primer parcial\primer_parcial\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"funciones.h"
+
+1525739869 d:\centu\laboratorio_1\clase 12 - primer parcial\primer_parcial\funciones.h
+
+1525741749 source:d:\centu\laboratorio_1\clase 12 - primer parcial\primer_parcial\funciones.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"funciones.h"
+
