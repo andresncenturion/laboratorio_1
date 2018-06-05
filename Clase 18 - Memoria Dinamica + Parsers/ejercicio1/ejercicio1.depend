@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1528163445 source:c:\users\andre\documents\github\laboratorio_1\clase 18 - memoria dinamica + parsers\ejercicio1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+

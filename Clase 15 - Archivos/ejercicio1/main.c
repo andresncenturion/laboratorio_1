@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define PATH "C:\\data\\miArchivo.txt"
+#define PATH "miArchivo.txt"
 
 int main()
 {
