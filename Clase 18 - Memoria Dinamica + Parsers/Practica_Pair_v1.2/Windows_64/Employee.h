@@ -34,6 +34,7 @@ Employee* employee_new(void);
 void employee_delete(Employee* this);
 int employee_setId(Employee* this, int id);
 int employee_getId(Employee* this);
+void listarEmployees (ArrayList*, int);
 #endif // _EMPLOYEE_H
 
 

@@ -3,6 +3,9 @@
 #include <string.h>
 #include "ArrayList.h"
 #include "Employee.h"
+#include "parser.h"
+
+#define PATH "data.csv"
 
 /****************************************************
     Menu:
@@ -18,47 +21,68 @@
 int main()
 {
     ArrayList* listaEmpleados;//puntero apuntando a cualquier lado
-    Employee* aux;
-    Employee* miEmpleado;
-    Employee* otroEmpleado;
+    //Employee* aux;
+    //Employee* miEmpleado;
+    //Employee* otroEmpleado;
+    FILE* pFile;
+    int opcion;
+    char seguir = 's';
 
     listaEmpleados = al_newArrayList();
+    pFile = fopen(PATH, "w");
 
-    miEmpleado = (Employee*) malloc(sizeof(Employee));//Esto va en el employee.c
-    otroEmpleado = (Employee*) malloc(sizeof(Employee));
-
-    //hacer lo siguiente con seters
-    miEmpleado->id = 8;
-    strcpy(miEmpleado->name, "Juan");
-    strcpy(miEmpleado->lastName, "Gomez");
-    miEmpleado->isEmpty = 1;
-    int i;
-
-    al_add(listaEmpleados, miEmpleado);
-
-    aux = (Employee*) al_get(listaEmpleados, 0);//Lo casteo con puntero a Employee
-
-    printf("%d------%s\n", aux->id, aux->name);//tambien con seters, a veces no se ven los campos pero es normal
-
-    printf("%d\n", al_len(listaEmpleados));
-
-
-    otroEmpleado->id = 9;
-    strcpy(otroEmpleado->name, "Ana");
-    strcpy(otroEmpleado->lastName, "Ruiz");
-    otroEmpleado->isEmpty = 1;
-
-    al_add(listaEmpleados, otroEmpleado);
-
-    for(i=0;i<al_len(listaEmpleados);i++)
+    while (seguir == 's')
     {
-        aux = (Employee*) al_get(listaEmpleados, i);
-        printf("%d------%s\n", aux->id, aux->name);
+        printf("Seleccione la opcion deseada: \n");
+        scanf("%d", &opcion);
+        switch (opcion)
+        {
+        case 1:
+            parserEmployee(pFile , listaEmpleados);
+            system ("Pause");
+            break;
+        case 2:
+            listarEmployees(listaEmpleados, sizeof(listaEmpleados));
+            system("Pause");
+            break;
+        case 7:
+            seguir = 'n';
+            break;
+        default:
+            printf("La opcion ingresada no es valida.\n\n");
+            system("Pause");
+            break;
+        }
 
+        /*int i;
+
+        al_add(listaEmpleados, miEmpleado);
+
+        aux = (Employee*) al_get(listaEmpleados, 0);//Lo casteo con puntero a Employee
+
+        printf("%d------%s\n", aux->id, aux->name);//tambien con seters, a veces no se ven los campos pero es normal
+
+        printf("%d\n", al_len(listaEmpleados));
+
+
+        otroEmpleado->id = 9;
+        strcpy(otroEmpleado->name, "Ana");
+        strcpy(otroEmpleado->lastName, "Ruiz");
+        otroEmpleado->isEmpty = 1;
+
+        al_add(listaEmpleados, otroEmpleado);
+
+        for(i=0;i<al_len(listaEmpleados);i++)
+        {
+            aux = (Employee*) al_get(listaEmpleados, i);
+            printf("%d------%s\n", aux->id, aux->name);
+
+        }
+
+
+        //Paso una funcion con el ordenamiento a la funcion sort mediante un puntero de funcion, eso se llama delegamiento
+        */
     }
-
-
-    //Paso una funcion con el ordenamiento a la funcion sort mediante un puntero de funcion, eso se llama delegamiento
 
     return 0;
 }

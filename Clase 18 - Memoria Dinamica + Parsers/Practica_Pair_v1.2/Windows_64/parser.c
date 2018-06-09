@@ -1,60 +1,73 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "ArrayList.h"
 #include "Employee.h"
 
 
 int parserEmployee(FILE* pFile , ArrayList* pArrayListEmployee)
 {
-    Employee empleado;
+    Employee* empleado;
 
-    char idString;
-    char name[51];
-    char lastName[51];
-    char stringIsEmpty;
+    int index = 0;
     int cant;
     int id;
-    int isEmpty = 0;
+    int isEmpty;
+    char idCad[20];
+    char nombre[50];
+    char apellido[50];
+    char isEmptyCad[20];
+    int compare;
 
-    pFile = fopen("data.csv", "r");
+    if (pFile != NULL)
+    {
+        pFile = fopen("data.csv", "r");
+        empleado = employee_new();
 
-    if (pFile == NULL)
+        if(pFile == NULL)
         {
-            printf("Error al abrir el archivo.\n\n");
+            printf("Error al abrir el fichero\n");
             exit(1);
         }
-    while (!feof(pFile))
-    {
-        cant = fscanf(pFile, "%[^,],%[^,],%[^,],%[^\n] \n", idString, name, lastName, stringIsEmpty);
-        if (cant != 4)
+
+        while(!feof(pFile))
         {
-            if (feof(pFile))
+            cant = fscanf(pFile, "%[^,] , %[^,] , %[^,] , %[^\n] \n", idCad, nombre, apellido, isEmptyCad);
+
+            if( cant != 4)
             {
-                printf ("Parseo exitoso.\n\n");
-                break;
+                if(feof(pFile))
+                {
+                    break;
+                }
+                else
+                {
+                    printf("Problema para leer el archivo\n");
+
+                    break;
+                }
+            }
+            id = atoi(idCad);
+            compare = strcmp(isEmptyCad, "false");
+            if(compare == 0)
+            {
+                isEmpty = 0;
             }
             else
             {
-                printf("Problema al leer el archivo.\n\n");
-                break;
+                isEmpty = 1;
             }
 
+            empleado->id = id;
+            strcpy(empleado->name, nombre);
+            strcpy(empleado->lastName, apellido);
+            empleado->isEmpty = isEmpty;
+            al_add(pArrayListEmployee,empleado);
+            index++;
         }
-
-        id = atoi(idString);
-        if (strcmp(stringIsEmpty, "true"))
-        {
-            isEmpty = 1;
-        }
-
-
-        empleado.id = id;
-        empleado.name = name;
-        empleado.lastName = lastName;
-        empleado.isEmpty = isEmpty;
-
-        printf("%d  %s  %s  %d", empleado.id, empleado.name, empleado.lastName, empleado.isEmpty);
     }
+    printf("Parseo exitoso.\n\n");
+    fclose(pFile);
 
     return 0;
 }
