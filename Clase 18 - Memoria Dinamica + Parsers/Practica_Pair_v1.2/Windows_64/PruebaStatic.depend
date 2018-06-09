@@ -62,3 +62,20 @@
 	"ArrayList.h"
 	"Employee.h"
 
+1528549285 source:d:\centu\laboratorio_1\clase 18 - memoria dinamica + parsers\practica_pair_v1.2\windows_64\employee.c
+	<stdio.h>
+	<stdlib.h>
+	"ArrayList.h"
+	"Employee.h"
+
+1528549285 d:\centu\laboratorio_1\clase 18 - memoria dinamica + parsers\practica_pair_v1.2\windows_64\arraylist.h
+
+1528550913 d:\centu\laboratorio_1\clase 18 - memoria dinamica + parsers\practica_pair_v1.2\windows_64\employee.h
+
+1528549285 source:d:\centu\laboratorio_1\clase 18 - memoria dinamica + parsers\practica_pair_v1.2\windows_64\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+	"Employee.h"
+

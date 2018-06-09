@@ -18,14 +18,14 @@
 
 #ifndef _EMPLOYEE_H
 #define _EMPLOYEE_H
-struct
+typedef struct
 {
     int id;
     char name[51];
     char lastName[51];
     int isEmpty;
 
-}typedef Employee;
+}Employee;
 
 
 int employee_compare(void* pEmployeeA,void* pEmployeeB);

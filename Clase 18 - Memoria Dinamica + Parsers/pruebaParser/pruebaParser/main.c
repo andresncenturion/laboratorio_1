@@ -16,11 +16,12 @@ int main()
 
     int cant;
     int id;
-    int isEmpty = 0;
+    int isEmpty;
     char idCad[20];
     char nombre[50];
     char apellido[50];
-    int isEmptyCad[20];
+    char isEmptyCad[20];
+    int compare;
 
     FILE* f;
 
@@ -34,7 +35,7 @@ int main()
 
     while(!feof(f))
     {
-        cant = fscanf(f, "%[^,],%[^,],%[^,],%[^\n] \n", idCad, nombre, apellido, isEmptyCad);
+        cant = fscanf(f, "%[^,] , %[^,] , %[^,] , %[^\n] \n", idCad, nombre, apellido, isEmptyCad);
 
         if( cant != 4)
         {
@@ -50,7 +51,12 @@ int main()
             }
         }
         id = atoi(idCad);
-        if((strcmp(isEmptyCad, "true")) == 0)
+        compare = strcmp(isEmptyCad, "false");
+        if(compare == 0)
+        {
+            isEmpty = 0;
+        }
+        else
         {
             isEmpty = 1;
         }
@@ -61,7 +67,6 @@ int main()
         empleado.isEmpty = isEmpty;
 
 
-
         printf("%d %s %s %d \n",  empleado.id, empleado.nombre, empleado.apellido, empleado.isEmpty);
 
     }
@@ -69,7 +74,6 @@ int main()
     printf("\n\n");
 
     fclose(f);
-
 
     return 0;
 }
