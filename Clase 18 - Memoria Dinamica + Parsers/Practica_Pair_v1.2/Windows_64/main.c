@@ -29,11 +29,19 @@ int main()
     char seguir = 's';
 
     listaEmpleados = al_newArrayList();
-    pFile = fopen(PATH, "w");
+    pFile = fopen(PATH, "r");
+    fclose(pFile);
 
     while (seguir == 's')
     {
-        printf("Seleccione la opcion deseada: \n");
+        printf("Seleccione la opcion deseada: \n\n");
+        printf("1. Parsear archivo\n");
+        printf("2. Listar empleados\n");
+        printf("3. Ordenar por nombre\n");
+        printf("4. Agregar un elemento\n");
+        printf("5. Elimina un elemento\n");
+        printf("6. Listar empleados (Desde/Hasta)\n");
+        printf("7. Salir\n\n");
         scanf("%d", &opcion);
         switch (opcion)
         {
@@ -42,7 +50,7 @@ int main()
             system ("Pause");
             break;
         case 2:
-            listarEmployees(listaEmpleados, sizeof(listaEmpleados));
+            //listarEmployees(listaEmpleados, 10);
             system("Pause");
             break;
         case 7:

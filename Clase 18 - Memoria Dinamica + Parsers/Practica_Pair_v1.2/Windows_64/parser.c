@@ -30,6 +30,8 @@ int parserEmployee(FILE* pFile , ArrayList* pArrayListEmployee)
             exit(1);
         }
 
+        cant = fscanf(pFile, "%[^,] , %[^,] , %[^,] , %[^\n] \n", idCad, nombre, apellido, isEmptyCad);
+
         while(!feof(pFile))
         {
             cant = fscanf(pFile, "%[^,] , %[^,] , %[^,] , %[^\n] \n", idCad, nombre, apellido, isEmptyCad);
@@ -57,13 +59,13 @@ int parserEmployee(FILE* pFile , ArrayList* pArrayListEmployee)
             {
                 isEmpty = 1;
             }
-
             empleado->id = id;
             strcpy(empleado->name, nombre);
             strcpy(empleado->lastName, apellido);
             empleado->isEmpty = isEmpty;
-            al_add(pArrayListEmployee,empleado);
+            al_add(pArrayListEmployee, empleado);
             index++;
+            printf("%d  %s  %s  %d\n", (empleado+index)->id, (empleado+index)->name, (empleado+index)->lastName, (empleado+index)->isEmpty);
         }
     }
     printf("Parseo exitoso.\n\n");

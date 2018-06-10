@@ -13,19 +13,9 @@ int employee_compare(void* pEmployeeA,void* pEmployeeB)
 
 void employee_print(Employee* this)
 {
-    printf("%d  %s  %s  %d\n", this->id, this->name, this->lastName, this->isEmpty);
+
 }
 
-void listarEmployees (ArrayList* pArrayList, int tam)
-{
-    int i;
-
-    for (i=0 ; i<tam ; i++)
-    {
-        employee_print(pArrayList+i);
-    }
-    printf("\n\n");
-}
 
 Employee* employee_new(void)
 {
