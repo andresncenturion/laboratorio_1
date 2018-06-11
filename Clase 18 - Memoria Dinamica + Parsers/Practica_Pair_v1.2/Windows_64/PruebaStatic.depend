@@ -62,22 +62,24 @@
 	"ArrayList.h"
 	"Employee.h"
 
-1528549285 source:d:\centu\laboratorio_1\clase 18 - memoria dinamica + parsers\practica_pair_v1.2\windows_64\employee.c
-	<stdio.h>
-	<stdlib.h>
-	"ArrayList.h"
-	"Employee.h"
-
-1528549285 d:\centu\laboratorio_1\clase 18 - memoria dinamica + parsers\practica_pair_v1.2\windows_64\arraylist.h
-
-1528550913 d:\centu\laboratorio_1\clase 18 - memoria dinamica + parsers\practica_pair_v1.2\windows_64\employee.h
-
-1528549285 source:d:\centu\laboratorio_1\clase 18 - memoria dinamica + parsers\practica_pair_v1.2\windows_64\main.c
+1528753411 source:d:\centu\laboratorio_1\clase 18 - memoria dinamica + parsers\practica_pair_v1.2\windows_64\employee.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"ArrayList.h"
 	"Employee.h"
+
+1528753411 d:\centu\laboratorio_1\clase 18 - memoria dinamica + parsers\practica_pair_v1.2\windows_64\arraylist.h
+
+1528753411 d:\centu\laboratorio_1\clase 18 - memoria dinamica + parsers\practica_pair_v1.2\windows_64\employee.h
+
+1528753411 source:d:\centu\laboratorio_1\clase 18 - memoria dinamica + parsers\practica_pair_v1.2\windows_64\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+	"Employee.h"
+	"parser.h"
 
 1528642716 source:c:\users\andre\documents\github\laboratorio_1\clase 18 - memoria dinamica + parsers\practica_pair_v1.2\windows_64\employee.c
 	<stdio.h>
@@ -106,4 +108,13 @@
 	"Employee.h"
 
 1528576818 c:\users\andre\documents\github\laboratorio_1\clase 18 - memoria dinamica + parsers\practica_pair_v1.2\windows_64\parser.h
+
+1528753411 d:\centu\laboratorio_1\clase 18 - memoria dinamica + parsers\practica_pair_v1.2\windows_64\parser.h
+
+1528753411 source:d:\centu\laboratorio_1\clase 18 - memoria dinamica + parsers\practica_pair_v1.2\windows_64\parser.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+	"Employee.h"
 
