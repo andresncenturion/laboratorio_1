@@ -97,6 +97,11 @@ int al_deleteArrayList(ArrayList* this)
 {
     int returnAux = -1;
 
+    if (this != NULL)
+    {
+        returnAux = 0;
+        free (this);
+    }
     return returnAux;
 }
 
@@ -127,6 +132,10 @@ void* al_get(ArrayList* this, int index)
 {
     void* returnAux = NULL;
 
+    if (this != NULL && (index < al_len(this) && index > -1))
+    {
+        returnAux = *(this->pElements+index);
+    }
     return returnAux;
 }
 
@@ -200,6 +209,10 @@ int al_remove(ArrayList* this,int index)
 {
     int returnAux = -1;
 
+    if (this != NULL && (index <= al_len(this) && index >-1))
+    {
+        returnAux = contract(this, index);
+    }
     return returnAux;
 }
 
@@ -213,6 +226,14 @@ int al_remove(ArrayList* this,int index)
 int al_clear(ArrayList* this)
 {
     int returnAux = -1;
+
+    if (this != NULL)
+    {
+        this->pElements = realloc(this->pElements, AL_INITIAL_VALUE);
+        this->size = 0;
+        this->reservedSize = AL_INITIAL_VALUE;
+        returnAux = 0;
+    }
 
     return returnAux;
 }
@@ -381,6 +402,16 @@ int expand(ArrayList* this,int index)
 int contract(ArrayList* this,int index)
 {
     int returnAux = -1;
+    int i;
 
+    if (this != NULL && (index < al_len(this) && index >-1))
+    {
+        for (i=index; i<this->size ; i++)
+        {
+            *(this->pElements+i) = *(this->pElements+(i+1));
+        }
+        returnAux = 0;
+        this->size--;
+    }
     return returnAux;
 }
