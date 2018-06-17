@@ -356,6 +356,11 @@ void* al_pop(ArrayList* this,int index)
 {
     void* returnAux = NULL;
 
+    if (this != NULL && (index > -1 && index < al_len(this)))
+    {
+        returnAux = *(this->pElements+index);
+        contract(this, index);
+    }
     return returnAux;
 }
 
@@ -370,14 +375,22 @@ void* al_pop(ArrayList* this,int index)
  */
 ArrayList* al_subList(ArrayList* this,int from,int to)
 {
-    void* returnAux = NULL;
+    ArrayList* returnAux = NULL;
+    int i;
 
+    if(this != NULL && to > from)
+    {
+        if ((to > -1 && to < al_len(this)) && (from > -1 && from < al_len(this)))
+        {
+            returnAux = al_newArrayList();
+            for(i = from; i < to; i++)
+            {
+                this->add(returnAux, this->get(this, i));
+            }
+        }
+    }
     return returnAux ;
 }
-
-
-
-
 
 /** \brief Returns true if pList list contains all of the elements of pList2
  * \param pList ArrayList* Pointer to arrayList
