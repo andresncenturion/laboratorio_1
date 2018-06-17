@@ -304,7 +304,20 @@ int al_push(ArrayList* this, int index, void* pElement)
 int al_indexOf(ArrayList* this, void* pElement)
 {
     int returnAux = -1;
+    int i;
+    int tam = al_len(this);
 
+    if (this != NULL && pElement != NULL)
+    {
+        for (i = 0 ; i<tam ; i++)
+        {
+            if(*(this->pElements+i) == pElement)
+            {
+                returnAux = i;
+                break;
+            }
+        }
+    }
     return returnAux;
 }
 
@@ -318,10 +331,19 @@ int al_isEmpty(ArrayList* this)
 {
     int returnAux = -1;
 
+    if (this != NULL)
+    {
+        if (al_len(this) == 0)
+        {
+            returnAux = 1;
+        }
+        else
+        {
+            returnAux = 0;
+        }
+    }
     return returnAux;
 }
-
-
 
 
 /** \brief Remove the item at the given position in the list, and return it.
