@@ -74,13 +74,13 @@ int al_add(ArrayList* this, void* pElement)
 
     if ((this != NULL) && (pElement != NULL))
     {
-        if (this->len(this) == this->reservedSize)
+        if (this->size == this->reservedSize)
         {
             cant = resizeUp(this);
         }
         if (cant == 0)
         {
-            *(this->pElements+this->len(this)) = pElement;
+            *(this->pElements+this->size) = pElement;
             this->size++;
             returnAux=0;
         }
@@ -116,7 +116,7 @@ int al_len(ArrayList* this)
 
     if (this != NULL)
     {
-        returnAux = this->len(this);
+        returnAux = this->size;
     }
     return returnAux;
 }
@@ -132,7 +132,7 @@ void* al_get(ArrayList* this, int index)
 {
     void* returnAux = NULL;
 
-    if (this != NULL && (index < this->len(this) && index > -1))
+    if (this != NULL && (index < al_len(this) && index > -1))
     {
         returnAux = *(this->pElements+index);
     }
@@ -156,7 +156,7 @@ int al_contains(ArrayList* this, void* pElement)
     if (this != NULL && pElement != NULL)
         {
             returnAux = 0;
-            for (i=0 ; i<this->len(this) ; i++)
+            for (i=0 ; i<this->size ; i++)
                 {
                     if (*(this->pElements+i) == pElement)
                         {
@@ -183,14 +183,14 @@ int al_set(ArrayList* this, int index,void* pElement)
 
     if (this != NULL && pElement != NULL)
     {
-        if (index >= 0 && index < this->len(this))
+        if (index >= 0 && index < this->size)
         {
             *((this->pElements)+(index)) = pElement;
             returnAux = 0;
         }
-        else if (index == this->len(this))
+        else if (index == this->size)
         {
-            this->add(this, pElement);
+            al_add(this, pElement);
             returnAux = 0;
         }
 
@@ -209,7 +209,7 @@ int al_remove(ArrayList* this,int index)
 {
     int returnAux = -1;
 
-    if (this != NULL && (index <= this->len(this) && index >-1))
+    if (this != NULL && (index <= al_len(this) && index >-1))
     {
         returnAux = contract(this, index);
     }
@@ -237,8 +237,11 @@ int al_clear(ArrayList* this)
         }
         returnAux = 0;
     }
+
     return returnAux;
 }
+
+
 
 /** \brief Returns an array containing all of the elements in this list in proper sequence
  * \param pList ArrayList* Pointer to arrayList
@@ -275,9 +278,9 @@ int al_push(ArrayList* this, int index, void* pElement)
     int returnAux = -1;
     int cant;
 
-    if (index == this->len(this))
+    if (index == this->size)
     {
-        this->add(this, pElement);
+        al_add(this, pElement);
     }
     else
     {
@@ -302,7 +305,7 @@ int al_indexOf(ArrayList* this, void* pElement)
 {
     int returnAux = -1;
     int i;
-    int tam = this->len(this);
+    int tam = al_len(this);
 
     if (this != NULL && pElement != NULL)
     {
@@ -330,7 +333,7 @@ int al_isEmpty(ArrayList* this)
 
     if (this != NULL)
     {
-        if (this->len(this) == 0)
+        if (al_len(this) == 0)
         {
             returnAux = 1;
         }
@@ -353,7 +356,7 @@ void* al_pop(ArrayList* this,int index)
 {
     void* returnAux = NULL;
 
-    if (this != NULL && (index > -1 && index < this->len(this)))
+    if (this != NULL && (index > -1 && index < al_len(this)))
     {
         returnAux = *(this->pElements+index);
         contract(this, index);
