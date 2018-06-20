@@ -74,13 +74,13 @@ int al_add(ArrayList* this, void* pElement)
 
     if ((this != NULL) && (pElement != NULL))
     {
-        if (this->len(this) == this->reservedSize)
+        if (this->size == this->reservedSize)
         {
             cant = resizeUp(this);
         }
         if (cant == 0)
         {
-            *(this->pElements+this->len(this)) = pElement;
+            *(this->pElements+this->size) = pElement;
             this->size++;
             returnAux=0;
         }
@@ -116,7 +116,7 @@ int al_len(ArrayList* this)
 
     if (this != NULL)
     {
-        returnAux = this->len(this);
+        returnAux = this->size;
     }
     return returnAux;
 }
@@ -251,7 +251,7 @@ ArrayList* al_clone(ArrayList* this)
 
     if (this != NULL)
     {
-        returnAux = (ArrayList*)malloc(sizeof(ArrayList)*this->size);
+        returnAux = (ArrayList*)malloc(sizeof(ArrayList)*this->len(this));
         if (returnAux != NULL)
         {
             returnAux = this;
@@ -302,11 +302,10 @@ int al_indexOf(ArrayList* this, void* pElement)
 {
     int returnAux = -1;
     int i;
-    int tam = this->len(this);
 
     if (this != NULL && pElement != NULL)
     {
-        for (i = 0 ; i<tam ; i++)
+        for (i = 0 ; i<this->len(this) ; i++)
         {
             if(*(this->pElements+i) == pElement)
             {
@@ -377,7 +376,7 @@ ArrayList* al_subList(ArrayList* this,int from,int to)
 
     if(this != NULL && to > from)
     {
-        if ((to > -1 && to <= al_len(this)) && (from > -1))
+        if ((to > -1 && to <= this->len(this)) && (from > -1))
         {
             returnAux = al_newArrayList();
             if (returnAux != NULL)
