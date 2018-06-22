@@ -5,22 +5,29 @@
 typedef struct
 {
     long int dni;
-    int operation;
+    int turno;
 }eClient;
 
 eClient* cl_newUrgent (void);
 eClient* cl_newRegular (void);
 int menu (void);
+int contUrg = 2000;
+int contReg = 10000;
 
 int main()
 {
     ArrayList* pUrgent;
     ArrayList* pRegular;
+    ArrayList* atendidoUrgent;
+    ArrayList* atendidoReg;
     char seguir = 's';
-    int turno;
+    eClient* auxCliente;
+
 
     pUrgent = al_newArrayList();
     pRegular = al_newArrayList();
+    atendidoUrgent = al_newArrayList();
+    atendidoReg = al_newArrayList();
 
     while (seguir == 's')
     {
@@ -28,18 +35,35 @@ int main()
         {
         case 1:
             pUrgent->add(pUrgent, cl_newUrgent());
-            turno = (pUrgent->len(pUrgent))-1;
-            printf("Su turno es el: %d",turno);
+            printf("Su turno es el: %d", contUrg);
             system("Pause");
             break;
         case 2:
             pRegular->add(pRegular, cl_newRegular());
-            turno = (pRegular->len(pRegular))-1;
-            printf("Su turno es el: %d",turno);
+            printf("Su turno es el: %d", contReg);
             system("Pause");
             break;
         case 3:
+            if (pUrgent->isEmpty() != 1)
+            {
+                auxCliente = (eClient*) pUrgent->pop(pUrgent->pElements, 0);
+                printf("--- PROXIMO TURNO ---\n\n");
+                printf("Turno: %d\n", auxCliente->turno);
+                printf("DNI: %ld\n\n", auxCliente->dni);
+                atendidoUrgent->add(atendidoUrgent, &auxCliente);
+            }
+            else
+            {
+                auxCliente = (eClient*) pRegular->pop(pRegular->pElements, 0);
+                printf("--- PROXIMO TURNO ---\n\n");
+                printf("Turno: %d\n", auxCliente->turno);
+                printf("DNI: %ld\n\n", auxCliente->dni);
+                atendidoReg->add(atendidoReg, &auxCliente);
+            }
+        case 4:
 
+            system ("Pause");
+            break;
         case 6:
             seguir = 'n';
             break;
@@ -61,7 +85,8 @@ eClient* cl_newUrgent (void)
         printf("--- NUEVO TRAMITE URGENTE --- \n\n");
         printf("Ingrese DNI: ");
         scanf("%ld", &newUrg->dni);
-        newUrg->operation = 1;
+        newUrg->turno = contUrg;
+        contUrg++;
     }
     return newUrg;
 }
@@ -76,7 +101,8 @@ eClient* cl_newRegular (void)
         printf("--- NUEVO TRAMITE REGULAR --- \n\n");
         printf("Ingrese DNI: ");
         scanf("%ld", &newReg->dni);
-        newReg->operation = 2;
+        newReg->turno = contReg;
+        contReg++;
     }
     return newReg;
 }
@@ -98,3 +124,4 @@ int menu (void)
 
     return opcion;
 }
+
