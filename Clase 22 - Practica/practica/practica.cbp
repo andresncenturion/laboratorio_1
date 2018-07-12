@@ -31,6 +31,14 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="ArrayList.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ArrayList.h" />
+		<Unit filename="jugadores.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="jugadores.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
