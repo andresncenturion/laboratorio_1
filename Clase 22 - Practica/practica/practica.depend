@@ -1,0 +1,24 @@
+# depslib dependency file v1.0
+1531412110 source:c:\users\andre\documents\github\laboratorio_1\clase 22 - practica\practica\arraylist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+
+1531409778 c:\users\andre\documents\github\laboratorio_1\clase 22 - practica\practica\arraylist.h
+
+1531413120 source:c:\users\andre\documents\github\laboratorio_1\clase 22 - practica\practica\main.c
+	<stdio.h>
+	<stdlib.h>
+	"ArrayList.h"
+	"jugadores.h"
+
+1531413145 c:\users\andre\documents\github\laboratorio_1\clase 22 - practica\practica\jugadores.h
+
+1531413120 source:c:\users\andre\documents\github\laboratorio_1\clase 22 - practica\practica\jugadores.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+	"jugadores.h"
+
