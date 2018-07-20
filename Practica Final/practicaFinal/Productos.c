@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "ArrayList.h"
 #include "Productos.h"
 
@@ -22,19 +23,19 @@ int menu(void)
     return opcion;
 }
 
-eProducto* newProducto (void)
+eProducto* newProducto(void)
 {
-    eProducto* nuevoProducto;
+    eProducto* nuevoElemento;
 
-    nuevoProducto = (eProducto*) malloc(sizeof(eProducto));
+    nuevoElemento = (eProducto*) malloc(sizeof(eProducto));
 
-    if (nuevoProducto != NULL)
+    if (nuevoElemento != NULL)
     {
-        nuevoProducto->id = 0;
-        strcpy(nuevoProducto->descripcion, "");
-        nuevoProducto->cantidad = 0;
+        nuevoElemento->id = 0;
+        strcpy(nuevoElemento->descripcion,"");
+        nuevoElemento->cantidad = 0;
     }
-    return nuevoProducto;
+    return nuevoElemento;
 }
 
 int setId(eProducto* aux, int buffer)
@@ -47,6 +48,17 @@ int setId(eProducto* aux, int buffer)
         aux->id = buffer;
     }
     return status;
+}
+
+int getId(eProducto* elemento)
+{
+    int id = -1;
+
+    if (elemento != NULL)
+    {
+        id = elemento->id;
+    }
+    return id;
 }
 
 int setDescripcion(eProducto* aux, char* buffer)
@@ -71,6 +83,28 @@ int setCantidad(eProducto* aux, int buffer)
         aux->cantidad = buffer;
     }
     return status;
+}
+
+void mostrarElemento(eProducto* unElemento)
+{
+    printf("%2d  %20s  %3d", unElemento->id, unElemento->descripcion, unElemento->cantidad);
+    printf("\n");
+}
+
+void mostrarElementos(ArrayList* lista)
+{
+    eProducto* unElemento;
+    int i;
+
+    if (lista != NULL)
+    {
+        printf("ID           DESCRIPCION  CANTIDAD\n\n");
+        for (i=0 ; i<(lista->len(lista)) ; i++)
+        {
+            unElemento = lista->get(lista, i);
+            mostrarElemento(unElemento);
+        }
+    }
 }
 
 int parseArchivo(char* path, ArrayList* lista)
@@ -127,7 +161,6 @@ int subMenu (void)
 {
     int opcion;
 
-    printf("--- SELECCIONE DEPOSITO ---\n\n");
     printf("1. Deposito 1\n");
     printf("2. Deposito 2\n");
     printf("\n");
@@ -140,59 +173,72 @@ int subMenu (void)
     return opcion;
 }
 
-void mostrarElemento(eProducto* unElemento)
-{
-    printf("%2d  %20s  %3d", unElemento->id, unElemento->descripcion, unElemento->cantidad);
-    printf("\n");
-}
-
-void mostrarElementos(ArrayList* lista)
-{
-    eProducto* unElemento;
-    int i;
-
-    if (lista != NULL)
-    {
-        printf("ID           DESCRIPCION  CANTIDAD\n\n");
-        for (i=0 ; i<(lista->len(lista)) ; i++)
-        {
-            unElemento = lista->get(lista, i);
-            mostrarElemento(unElemento);
-        }
-    }
-}
-
 int moverElemento (ArrayList* lista0, ArrayList* lista1)
 {
     int status = -1;
     int listaOrigen = -1;
     int listaDestino = -1;
     int auxId = -1;
+    int i;
+    ArrayList* auxLista;
+    eProducto* auxElemento;
 
     if (lista0 != NULL && lista1 != NULL)
     {
-        printf("--- MOVER PRODUCTOS A DEPOSITO ---\n");
-        printf("Seleccione deposito de origen: ");
-        listaOrigen = subMenu();
-        if (listaOrigen == 1)
-        {
-            mostrarElementos(lista0);
-        }
-        else
-        {
-            mostrarElementos(lista1);
-        }
-        printf("Ingrese Id del elemento a mover: ");
-        scanf("%d", &auxId);
+        auxLista = al_newArrayList();
+        auxElemento = newProducto();
 
-        printf("Seleccione deposito de destino: ");
-        listaDestino = subMenu();
+        if (auxLista != NULL && auxElemento != NULL)
+        {
+            printf("--- MOVER PRODUCTOS A DEPOSITO ---\n");
 
+            printf("Seleccione deposito de origen: ");
+            listaOrigen = subMenu();
+
+            if (listaOrigen == 1)
+            {
+                auxLista = lista0;
+            }
+            else
+            {
+                auxLista = lista1;
+            }
+            mostrarElementos(auxLista);
+            printf("Ingrese Id del elemento a mover: ");
+            scanf("%d", &auxId);
+            for (i=0 ; i<(auxLista->len(auxLista)) ; i++)
+            {
+                if (auxId == getId(auxLista))
+                {
+                    auxElemento = auxLista->get(auxLista, i);
+                    auxLista->remove(auxLista, i);
+                    break;
+                }
+                else
+                {
+                    printf("El elemento ingresado no existe.\n\n");
+                    system("Pause");
+                    exit(-2);
+                }
+            }
+
+            printf("Seleccione deposito de destino: ");
+            listaDestino = subMenu();
+            if (listaDestino == 1)
+            {
+                auxLista = lista0;
+            }
+            else
+            {
+                auxLista = lista1;
+            }
+            auxLista->add(auxLista, auxElemento);
+        }
     }
     else
     {
         printf("Error al mover elemento.\n\n");
         system ("Pause");
     }
-    return 0;
+    return status;
 }

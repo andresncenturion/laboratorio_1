@@ -47,3 +47,27 @@
 	"ArrayList.h"
 	"Empleados.h"
 
+1531952296 source:c:\users\andre\documents\github\laboratorio_1\segundo parcial\centurionandres\parcial2\arraylist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+
+1531952296 c:\users\andre\documents\github\laboratorio_1\segundo parcial\centurionandres\parcial2\arraylist.h
+
+1531952296 source:c:\users\andre\documents\github\laboratorio_1\segundo parcial\centurionandres\parcial2\empleados.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+	"Empleados.h"
+
+1531952296 c:\users\andre\documents\github\laboratorio_1\segundo parcial\centurionandres\parcial2\empleados.h
+
+1531952296 source:c:\users\andre\documents\github\laboratorio_1\segundo parcial\centurionandres\parcial2\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+	"Empleados.h"
+

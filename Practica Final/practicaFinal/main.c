@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "ArrayList.h"
 #include "Productos.h"
 
@@ -11,8 +12,6 @@ int main()
     ArrayList* depositoCero;
     ArrayList* depositoUno;
     char seguir = 's';
-    int depositoOrigen = -1;
-    int depositoDestino = -1;
 
     depositoCero = al_newArrayList();
     depositoUno = al_newArrayList();
@@ -25,18 +24,25 @@ int main()
             {
             case 1:
                 parseArchivo(PATH0, depositoCero);
+                mostrarElementos(depositoCero);
+                system("Pause");
                 parseArchivo(PATH1, depositoUno);
+                mostrarElementos(depositoUno);
+                system("Pause");
                 break;
             case 2:
-                printf("--- LISTAR PRODUCTOS DE DEPOSITO ---");
+                printf("--- LISTAR PRODUCTOS DE DEPOSITO ---\n\n");
+                printf("Seleccione deposito a listar.\n\n");
                 if (subMenu() == 1)
                 {
                     mostrarElementos(depositoCero);
+                    system("Pause");
                     break;
                 }
                 else
                 {
                     mostrarElementos(depositoUno);
+                    system("Pause");
                     break;
                 }
             case 3:
