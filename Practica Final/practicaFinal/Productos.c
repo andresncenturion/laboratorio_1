@@ -4,6 +4,9 @@
 #include "ArrayList.h"
 #include "Productos.h"
 
+#define PATH0 "dep0.csv"
+#define PATH1 "dep1.csv"
+
 int menu(void)
 {
     int opcion;
@@ -73,6 +76,19 @@ int setDescripcion(eProducto* aux, char* buffer)
     return status;
 }
 
+char* getDescripcion(eProducto* elemento)
+{
+    char* descripcion = NULL;
+
+    descripcion = (char*) malloc(sizeof(char)*20);
+
+    if(elemento != NULL)
+    {
+        strcpy(descripcion, elemento->descripcion);
+    }
+    return descripcion;
+}
+
 int setCantidad(eProducto* aux, int buffer)
 {
     int status = -1;
@@ -83,6 +99,17 @@ int setCantidad(eProducto* aux, int buffer)
         aux->cantidad = buffer;
     }
     return status;
+}
+
+int getCantidad(eProducto* elemento)
+{
+    int cant = -1;
+
+    if (elemento != NULL)
+    {
+        cant = elemento->cantidad;
+    }
+    return cant;
 }
 
 void mostrarElemento(eProducto* unElemento)
@@ -136,8 +163,6 @@ int parseArchivo(char* path, ArrayList* lista)
                 if (feof(f))
                 {
                     status = 1;
-                    printf("Parseo exitoso");
-                    system("Pause");
                     break;
                 }
                 else
@@ -173,6 +198,26 @@ int subMenu (void)
     return opcion;
 }
 
+int listarElementos (ArrayList* depositoCero, ArrayList* depositoUno)
+{
+    int status = -1;
+
+    printf("--- LISTAR PRODUCTOS DE DEPOSITO ---\n\n");
+    printf("Seleccione deposito a listar.\n\n");
+    if (subMenu() == 1)
+    {
+        status = 0;
+        mostrarElementos(depositoCero);
+    }
+    else
+    {
+        status = 1;
+        mostrarElementos(depositoUno);
+    }
+    return status;
+}
+
+
 int moverElemento (ArrayList* lista0, ArrayList* lista1)
 {
     int status = -1;
@@ -180,6 +225,7 @@ int moverElemento (ArrayList* lista0, ArrayList* lista1)
     int listaDestino = -1;
     int auxId = -1;
     int i;
+    int tam;
     ArrayList* auxLista;
     eProducto* auxElemento;
 
@@ -192,7 +238,7 @@ int moverElemento (ArrayList* lista0, ArrayList* lista1)
         {
             printf("--- MOVER PRODUCTOS A DEPOSITO ---\n");
 
-            printf("Seleccione deposito de origen: ");
+            printf("Seleccione deposito de origen: \n");
             listaOrigen = subMenu();
 
             if (listaOrigen == 1)
@@ -206,23 +252,24 @@ int moverElemento (ArrayList* lista0, ArrayList* lista1)
             mostrarElementos(auxLista);
             printf("Ingrese Id del elemento a mover: ");
             scanf("%d", &auxId);
-            for (i=0 ; i<(auxLista->len(auxLista)) ; i++)
+            tam = auxLista->len(auxLista);
+            for (i=0 ; i<tam ; i++)
             {
-                if (auxId == getId(auxLista))
+                auxElemento = auxLista->get(auxLista, i);
+                if (auxId == getId(auxElemento))
                 {
-                    auxElemento = auxLista->get(auxLista, i);
+                    status = 1;
                     auxLista->remove(auxLista, i);
                     break;
                 }
-                else
-                {
-                    printf("El elemento ingresado no existe.\n\n");
-                    system("Pause");
-                    exit(-2);
-                }
+            }
+            if (status != 1)
+            {
+                printf("El Id ingresado no existe.\n\n");
+                exit(-1);
             }
 
-            printf("Seleccione deposito de destino: ");
+            printf("Seleccione deposito de destino: \n");
             listaDestino = subMenu();
             if (listaDestino == 1)
             {
@@ -240,5 +287,176 @@ int moverElemento (ArrayList* lista0, ArrayList* lista1)
         printf("Error al mover elemento.\n\n");
         system ("Pause");
     }
+
+    escribirArchivo(PATH0, lista0);
+    escribirArchivo(PATH1, lista1);
+
     return status;
 }
+
+int buscarCodigo (ArrayList* lista, int Id)
+{
+    int index = -1;
+    int tam;
+    int i;
+    eProducto* auxElemento;
+
+    if (lista != NULL)
+    {
+        auxElemento = newProducto();
+        if (auxElemento != NULL)
+        {
+            tam = lista->len(lista);
+            for (i=0 ; i<tam ; i++)
+            {
+                auxElemento = lista->get(lista, i);
+                if (Id == getId(auxElemento))
+                {
+                    index = i;
+                    printf("Elemento hallado.\n");
+                    break;
+                }
+            }
+        }
+    }
+    return index;
+}
+
+int descontarProductos(ArrayList* lista0, ArrayList* lista1)
+{
+    int status = -1;
+    int index = -1;
+    int auxId;
+    int cantidad;
+    eProducto* auxElemento;
+    ArrayList* auxLista;
+
+    auxLista = al_newArrayList();
+    auxElemento = newProducto();
+
+    if (auxElemento != NULL && auxLista != NULL)
+    {
+        printf("--- DESCONTAR PRODUCTOS DE DEPOSITO ---\n\n");
+        printf("Ingrese Id del producto a descontar: ");
+        scanf("%d", &auxId);
+
+        index = buscarCodigo (lista0, auxId);
+        if (index != -1)
+        {
+            auxLista = lista0;
+        }
+        else
+        {
+            index = buscarCodigo(lista1, auxId);
+            if (index != -1)
+            {
+                auxLista = lista1;
+            }
+            else
+            {
+                printf("El Id ingresado no existe en ningun deposito.\n\n");
+                system("Pause");
+                exit (-1);
+            }
+        }
+        auxElemento = auxLista->get(auxLista, index);
+        printf("Producto encontrado.\n\n");
+        printf("ID           DESCRIPCION  CANTIDAD\n\n");
+        mostrarElemento(auxElemento);
+        printf("Ingrese cantidad a descontar: ");
+        scanf("%d", &cantidad);
+        while (cantidad > getCantidad(auxElemento))
+        {
+            printf("La cantidad ingresada es mayor que el stock. Intente nuevamente.\n");
+            printf("Ingrese cantidad a descontar: ");
+            scanf("%d", &cantidad);
+        }
+        if (cantidad <= getCantidad(auxElemento))
+        {
+            cantidad = getCantidad(auxElemento) - cantidad;
+            setCantidad(auxElemento, cantidad);
+            printf("Cantidad modificada exitosamente.\n\n");
+        }
+    }
+    return status;
+}
+
+int sumarProductos(ArrayList* lista0, ArrayList* lista1)
+{
+    int status = -1;
+    int index = -1;
+    int auxId;
+    int cantidad;
+    eProducto* auxElemento;
+    ArrayList* auxLista;
+
+    auxLista = al_newArrayList();
+    auxElemento = newProducto();
+
+    if (auxElemento != NULL && auxLista != NULL)
+    {
+        printf("--- SUMAR PRODUCTOS DE DEPOSITO ---\n\n");
+        printf("Ingrese Id del producto a sumar: ");
+        scanf("%d", &auxId);
+
+        index = buscarCodigo (lista0, auxId);
+        if (index != -1)
+        {
+            auxLista = lista0;
+        }
+        else
+        {
+            index = buscarCodigo(lista1, auxId);
+            if (index != -1)
+            {
+                auxLista = lista1;
+            }
+            else
+            {
+                printf("El Id ingresado no existe en ningun deposito.\n\n");
+                system("Pause");
+                exit (-1);
+            }
+        }
+        auxElemento = auxLista->get(auxLista, index);
+        printf("Producto encontrado.\n\n");
+        printf("ID           DESCRIPCION  CANTIDAD\n\n");
+        mostrarElemento(auxElemento);
+        printf("Ingrese cantidad a sumar: ");
+        scanf("%d", &cantidad);
+            cantidad = getCantidad(auxElemento) - cantidad;
+            setCantidad(auxElemento, cantidad);
+            printf("Cantidad modificada exitosamente.\n\n");
+    }
+    return status;
+}
+
+int escribirArchivo(char* path, ArrayList* lista)
+{
+    int status = -1;
+    FILE* f;
+    eProducto* aux;
+    int i;
+    int tam;
+
+    tam = lista->len(lista);
+    if(lista != NULL)
+    {
+        f = fopen(path, "w");
+
+        if(f != NULL)
+        {
+            status = 0;
+            for(i=0 ; i<tam ; i++)
+            {
+                aux = lista->get(lista, i);
+                fprintf(f,"%d,", getId(aux));
+                fprintf(f,"%s,", getDescripcion(aux));
+                fprintf(f,"%d\n", getCantidad(aux));
+            }
+        }
+        fclose(f);
+    }
+    return status;
+}
+

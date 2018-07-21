@@ -24,29 +24,22 @@ int main()
             {
             case 1:
                 parseArchivo(PATH0, depositoCero);
-                mostrarElementos(depositoCero);
-                system("Pause");
                 parseArchivo(PATH1, depositoUno);
-                mostrarElementos(depositoUno);
+                printf("Depositos cargados.\n\n");
                 system("Pause");
                 break;
             case 2:
-                printf("--- LISTAR PRODUCTOS DE DEPOSITO ---\n\n");
-                printf("Seleccione deposito a listar.\n\n");
-                if (subMenu() == 1)
-                {
-                    mostrarElementos(depositoCero);
-                    system("Pause");
-                    break;
-                }
-                else
-                {
-                    mostrarElementos(depositoUno);
-                    system("Pause");
-                    break;
-                }
+                listarElementos(depositoCero, depositoUno);
+                system("Pause");
+                break;
             case 3:
                 moverElemento(depositoCero, depositoUno);
+                break;
+            case 4:
+                descontarProductos(depositoCero, depositoUno);
+                break;
+            case 5:
+                sumarProductos(depositoCero, depositoUno);
                 break;
             case 6:
                 seguir = 'n';
