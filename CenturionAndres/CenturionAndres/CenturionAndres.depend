@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1532649663 source:d:\centu\laboratorio_1\centurionandres\centurionandres\arraylist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+
+1532649663 d:\centu\laboratorio_1\centurionandres\centurionandres\arraylist.h
+
+1532650547 source:d:\centu\laboratorio_1\centurionandres\centurionandres\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+	"Reparto.h"
+
+1532647708 d:\centu\laboratorio_1\centurionandres\centurionandres\reparto.h
+
+1532650586 source:d:\centu\laboratorio_1\centurionandres\centurionandres\reparto.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+	"Reparto.h"
+
