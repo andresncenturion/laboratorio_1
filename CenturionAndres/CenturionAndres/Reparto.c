@@ -202,7 +202,7 @@ int parseArchivo(ArrayList* lista)
                 }
                 else
                 {
-                    printf("Error al leer archivo");
+                    printf("Error al leer archivo\n");
                     system("Pause");
                     status = -3;
                 }
@@ -243,12 +243,33 @@ void imprimirEntregas(ArrayList* lista)
     }
 }
 
+int existeLocalidad(ArrayList* lista, char* localidad)
+{
+    int existe = -1;
+    int i;
+
+    if (lista != NULL && localidad != NULL)
+        {
+            existe = 0;
+            for (i=0 ; i<lista->len(lista) ; i++)
+                {
+                    if (strcmp(*(lista->pElements+i), localidad) == 0)
+                        {
+                            existe = 1;
+                            break;
+                        }
+                }
+        }
+    return existe;
+}
+
 void buscarLocalidades(ArrayList* productos, ArrayList* localidades)
 {
     int tam;
     int i;
-    eReparto* aux;
     int existe;
+    eReparto* aux;
+    char* auxLocalidad;
 
     if (productos != NULL && localidades != NULL)
     {
@@ -257,10 +278,11 @@ void buscarLocalidades(ArrayList* productos, ArrayList* localidades)
         for (i=0 ; i<tam ; i++)
         {
             aux = productos->get(productos, i);
-            existe = localidades->contains(localidades, aux);
+            auxLocalidad = getLocalidad(aux);
+            existe = existeLocalidad(localidades, auxLocalidad);
             if (existe == 0)
             {
-                localidades->add(localidades, aux);
+                localidades->add(localidades, auxLocalidad);
             }
         }
     }
@@ -270,75 +292,44 @@ void imprimirLocalidades (ArrayList* productos, ArrayList* localidades)
 {
     int tam;
     int i;
-    eReparto* auxElemento;
+    char* aux;
 
     if (productos != NULL && localidades != NULL)
     {
-        auxElemento = newReparto();
-        if (auxElemento != NULL)
-        {
-            buscarLocalidades(productos, localidades);
+        buscarLocalidades(productos, localidades);
 
-            printf("--- IMPRIMIR LOCALIDADES ---\n\n");
-            tam = localidades->len(localidades);
-            for (i=0 ; i<tam ; i++)
-            {
-                auxElemento = localidades->get(localidades,i);
-                printf("%s\n", auxElemento->localidad);
-            }
+        printf("--- IMPRIMIR LOCALIDADES ---\n\n");
+        tam = localidades->len(localidades);
+        for (i=0 ; i<tam ; i++)
+        {
+
+            strcpy(aux, localidades->get(localidades, i));
+            printf("%s\n", aux);
         }
     }
 }
 
-void pedirLocalidades (ArrayList* productos, ArrayList* localidades)
+int filtrarLocalidades (ArrayList* productos, ArrayList* localidades, char* localidad)
 {
-    int tam;
-    int i;
     int status = -1;
+    int i;
+    int tam;
     eReparto* aux;
 
-    if(productos != NULL && localidades != NULL)
+    if (productos != NULL && localidades != NULL && localidad != NULL)
+    {
+        status = 0;
+        aux = newReparto();
+        tam = productos->len(productos);
+        for (i=0 ; i<tam ; i++)
         {
-            tam = productos->len(productos);
-            aux = newReparto();
-            status = localidades->clear(localidades);
-            if (status == 0)
+            aux = productos->get(productos, i);
+            if(strcmp(aux->localidad, localidad) == 0)
             {
-                printf("--- GENERAR ARCHIVO DE REPARTO --- \n\n");
-                for (i=1 ; i<4 ; i++)
-                {
-                    printf("Ingrese localidad %d: ", i);
-                    fflush(stdin);
-                    gets(aux->localidad);
-                    localidades->add(aux);
-                }
+                status = 1;
+                localidades->add(localidades, aux);
             }
         }
-}
-
-int listarOrdenados (void* elemento1, void* elemento2)
-{
-    int status = 0;
-
-    if(strcmp(((eReparto*)elemento1)->localidad, ((eReparto*)elemento2)->localidad) < 0)
-    {
-        status = 1;
-    }
-    if(strcmp(((eReparto*)elemento1)->localidad, ((eReparto*)elemento2)->localidad) > 0)
-    {
-        status =  -1;
-    }
-    return status;
-}
-
-int filtrarLocalidades (void* elemento)
-{
-    int status = -1;
-    char* localidad;
-
-    if(strcpy(localidad, getLocalidad(elemento)) == 0)
-    {
-        status = 1;
     }
     return status;
 }
@@ -346,33 +337,38 @@ int filtrarLocalidades (void* elemento)
 int generarArchivo(ArrayList* productos, ArrayList* localidades)
 {
     int status = -1;
-    FILE* f;
-    eReparto* aux;
     int i;
     int tam;
+    FILE* f;
+    char* localidad;
+    eReparto* aux;
 
-    if (productos != NULL && localidades != NULL)
+    if(productos != NULL && localidades != NULL)
     {
-        pedirLocalidades(productos, localidades);
-        localidades = localidades->filter(localidades, filtrarLocalidades);
-        localidades->sort(localidades, listarOrdenados, 0);
-
         f = fopen("entregas.csv", "w");
 
         if(f != NULL)
         {
             status = 0;
-            tam = localidades->len(localidades);
-                for(i=0 ; i<tam ; i++)
-                {
-                    aux = localidades->get(localidades, i);
+            localidades->clear(localidades);
+            for (i=1; i<4 ; i++)
+            {
+                printf("Ingrese localidad %d:", i);
+                fflush(stdin);
+                gets(localidad);
+                filtrarLocalidades(productos, localidades, localidad);
+            }
 
-                    fprintf(f,"%d,", getId(aux));
-                    fprintf(f,"%s,", getProducto(aux));
-                    fprintf(f,"%s,", getDireccion(aux));
-                    fprintf(f,"%s,", getLocalidad(aux));
-                    fprintf(f,"%s\n", getRecibe(aux));
-                }
+            tam = localidades->len(localidades);
+            for(i=0 ; i<tam ; i++)
+            {
+                aux = localidades->get(localidades, i);
+                fprintf(f,"%d,", getId(aux));
+                fprintf(f,"%s,", getProducto(aux));
+                fprintf(f,"%s,", getDireccion(aux));
+                fprintf(f,"%s,", getLocalidad(aux));
+                fprintf(f,"%s\n", getRecibe(aux));
+            }
         }
         fclose(f);
     }

@@ -23,3 +23,27 @@
 	"ArrayList.h"
 	"Reparto.h"
 
+1532871968 source:c:\users\andre\documents\github\laboratorio_1\centurionandres\centurionandres\arraylist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+
+1532871968 c:\users\andre\documents\github\laboratorio_1\centurionandres\centurionandres\arraylist.h
+
+1532991797 source:c:\users\andre\documents\github\laboratorio_1\centurionandres\centurionandres\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+	"Reparto.h"
+
+1532991901 c:\users\andre\documents\github\laboratorio_1\centurionandres\centurionandres\reparto.h
+
+1532992473 source:c:\users\andre\documents\github\laboratorio_1\centurionandres\centurionandres\reparto.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+	"Reparto.h"
+
